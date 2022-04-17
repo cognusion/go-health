@@ -1,0 +1,55 @@
+{
+	"metrics": [
+		{
+			"name": "propertyA",
+			"expectedValue": 0,
+			"badOver": 1,
+			"status": "OK",
+			"value": 0,
+			"warnOver": 0
+		},
+		{
+			"name": "propertyB",
+			"status": "OK",
+			"value": 3
+		},
+		{
+			"name": "propertyC",
+			"value": 16
+		}
+	],
+	"overallStatus": "OK",
+	"services": [
+		{
+			"name": "serviceACheck1",
+			"status": "OK",
+			"timeout": 300000,
+			"timeStamp": 1571851681,
+			"value": "whatever"
+		},
+		{
+			"name": "serviceBCheck1",
+			"status": "OK"
+		},
+		{
+			"name": "serviceBCheck2",
+			"status": "OK"
+		}
+	],
+	"systems": [
+		{
+			"name": "database1",
+			"status": "OK",
+			"timeout": 300000,
+			"timeStamp": 1571851681
+		},
+		{
+			"name": "database2",
+			"status": "OK"
+		},
+		{
+			"name": "database3",
+			"status": "OK"
+		}
+	]
+}

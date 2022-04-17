@@ -1,0 +1,153 @@
+package health
+
+// SchemaJSON was generated from schema.json at Sun Apr 17 12:23:48 PM EDT 2022
+var SchemaJSON = []byte(`
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://example.com/product.schema.json",
+	"title": "Go Healthcheck",
+	"description": "The Go Healthcheck (health.Check) is output by HTTP services wishing to provide consumable healthcheck output",
+	"type": "object",
+	"properties": {
+		"overallStatus": {
+      "description": "The declared status of the system",
+      "type": "string",
+      "enum": [
+        "OK",
+        "WARNING",
+        "ERROR",
+				"BAD",
+				"CRITICAL",
+				"UNKNOWN"
+      ]
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/metric"
+      }
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/service"
+      }
+    },
+    "systems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/system"
+      }
+    }
+  },
+  "required": [
+    "overallStatus"
+  ],
+  "definitions": {
+    "health": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the service"
+        },
+        "status": {
+          "description": "The declared status of the service",
+          "type": "string",
+          "enum": [
+            "OK",
+						"UP",
+            "WARNING",
+						"ERROR",
+						"BAD",
+						"DOWN",
+						"CRITICAL",
+						"UNKNOWN"
+          ]
+        },
+        "timeStamp": {
+          "description": "The UNIX epoch timestamp for when this value was last fetched",
+          "type": ["integer", "null"]
+        },
+        "timeout": {
+          "description": "The number of milliseconds allowed to lapse between 'timeStamp' and 'now' before the metric is declared stale",
+          "type": ["integer", "null"]
+        },
+        "message": {
+            "type": ["string", "null"],
+          "description": "A message explaining why the status is what it is (often exception message)"
+        }
+      }
+    },
+    "metric": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "extends" : {
+        "$ref": "#/definitions/health"
+      },
+      "allOf": [{ "$ref": "#/definitions/health" }],
+      "additionalProperties": true,
+      "properties": {
+        "value": {
+          "description": "The current value for this metric",
+          "type": "number"
+        },
+        "expectedValue": {
+          "description": "The declared value that was expected for this metric",
+          "type": ["number", "null"]
+        },
+        "minValue": {
+          "description": "The declared minimum value that for this metric (graph floor)",
+          "type": ["number", "null"]
+        },
+        "maxValue": {
+          "description": "The declared maximum value that for this metric (graph ceiling)",
+          "type": ["number", "null"]
+        },
+        "warnOver": {
+          "description": "The value at which exceeding values generate WARNING status (graph yellow-line)",
+          "type": ["number", "null"]
+        },
+        "badOver": {
+          "description": "The value at which exceeding values generate CRITICAL status (graph red-line)",
+          "type": ["number", "null"]
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "name",
+        "status"
+      ],
+      "extends" : {
+        "$ref": "#/definitions/health"
+      },
+      "allOf": [{ "$ref": "#/definitions/health" }],
+      "additionalProperties": true,
+      "properties": {
+      }
+    },
+    "system": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "extends" : {
+        "$ref": "#/definitions/health"
+      },
+      "allOf": [{ "$ref": "#/definitions/health" }],
+      "additionalProperties": true,
+      "properties": {
+      }
+    }
+  }
+}
+`)
